@@ -1,11 +1,39 @@
-const axios=require('axios');
-const pageUrl='https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States';
-async function getUsStates()
-	{
-		const {data}=await axios.get(pageUrl);
-		// console.log(data);
-		const table=$('caption:contains("States of the United States of America")')[0].parentElement;
-		console.log(table);
-	}
+const express=require('express');
+const app=express();
+const getUsStates=require('./getUsStates');
 
-getUsStates();
+app.use(express.static('Public'));
+
+app.use(
+		(req,res,next)=>
+						{
+							res.header('Access-Control-Allow-Origin','*');
+							res.header('Access-Control-Allow-Headers','Origin,X-Requested-With,Content-Type,Accept,Authorization');
+							if(req.method==='OPTIONS')
+							{
+								res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET');
+								return res.status(200).json({}); 
+							}
+							next(); //so that the flow may continue
+						}
+	   );
+app.get('/',
+			(req,res)=>
+				       {
+				       	res.status(200).json("we dont have a slash route as of yet");
+				       }
+	   );
+app.get(
+		'/api/states',
+				      async(req,res)=>
+				      				   {
+				      				   	const states=await getUsStates();
+				      				   	res.json(states);
+				      				   }
+	   );
+const port = process.env.PORT ||4242;
+app.listen(port,()=>
+					{
+						console.log(`listening at http://localhost:${port}`)
+					}
+	 	  );

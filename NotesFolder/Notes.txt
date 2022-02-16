@@ -2,10 +2,16 @@
 * npm i axios
 * created index.js
 * tried $.fn.jquery on the console of firefox, turns out wikipedia comes with jquery
-* right click on any html element, inspect right click on element and copy > css selector
+* right click on any html element, inspect right click on element and copy > css selector (This will give you the css selector)
 *$('copied value') to see the element
 
 https://youtu.be/76d2yOMXmag?t=3001
 
 
 *npm i cheerio
+
+https://youtu.be/76d2yOMXmag?t=3678
+https://youtu.be/76d2yOMXmag?t=4221
+
+*npm i express
+*npm i -D nodemon
